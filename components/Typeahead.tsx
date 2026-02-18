@@ -11,7 +11,7 @@ interface TypeaheadProps {
   options: Option[];
   placeholder?: string;
   multiple?: boolean;
-  onChange: (selected: Option | Option[] | null) => void;
+  onChange?: (selected: Option | Option[] | null) => void;
   label?: string;
 }
 
@@ -53,12 +53,12 @@ export default function Typeahead({
     if (multiple) {
       const newSelected = [...selected, option];
       setSelected(newSelected);
-      onChange(newSelected);
+      onChange?.(newSelected);
       setSearch('');
       inputRef.current?.focus();
     } else {
       setSelected([option]);
-      onChange(option);
+      onChange?.(option);
       setSearch(option.label);
       setIsOpen(false);
     }
@@ -68,7 +68,7 @@ export default function Typeahead({
   const handleRemove = (option: Option) => {
     const newSelected = selected.filter((s) => s.value !== option.value);
     setSelected(newSelected);
-    onChange(multiple ? newSelected : null);
+    onChange?.(multiple ? newSelected : null);
   };
 
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {

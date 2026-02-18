@@ -1,6 +1,6 @@
 'use client';
 
-import { Menu, Search, Bell, Mail, User, ChevronDown, LogOut } from 'lucide-react';
+import { Search, Bell, Mail, User, ChevronDown, LogOut } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 
@@ -37,12 +37,7 @@ export default function Header() {
     }}>
       
       {/* LEFT */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-        <Menu style={{ width: '24px', height: '24px', color: 'var(--text-secondary)', cursor: 'pointer' }} />
-        <h1 style={{ fontSize: '20px', fontWeight: '700', color: 'var(--primary)' }}>
-          StoneFleet
-        </h1>
-      </div>
+      <div></div>
 
       {/* CENTER SEARCH */}
       <div style={{ flex: 1, display: 'flex', justifyContent: 'center' }}>

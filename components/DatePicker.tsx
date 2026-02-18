@@ -4,7 +4,7 @@ import { useState } from 'react';
 
 interface DatePickerProps {
   value?: Date;
-  onChange: (date: Date | undefined) => void;
+  onChange?: (date: Date | undefined) => void;
   placeholder?: string;
   label?: string;
   error?: string;
@@ -27,7 +27,7 @@ export default function DatePicker({
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newDate = e.target.value ? new Date(e.target.value) : undefined;
-    onChange(newDate);
+    onChange?.(newDate);
   };
 
   return (

@@ -26,11 +26,21 @@ function HomeContent() {
         date: date,
         vehicles: selectedVehicles
       })
-      showToast('Vehicle added successfully!', 'success')
+
+      showToast(
+        "Success",
+        "Login successful",
+        "success"
+      )
+
     } catch (error: any) {
-      showToast(error.message, 'error')
-    }
-  }
+      showToast(
+        "Error",
+        "Invalid credentials",
+        "error"
+      )
+    }   // ✅ catch properly closed
+  }     // ✅ handleSubmit properly closed
 
   return (
     <div style={{ display: 'flex', height: '100vh' }}>
@@ -38,49 +48,49 @@ function HomeContent() {
       <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
         <Header />
         <div style={{ padding: '40px', maxWidth: '448px' }}>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
 
-          <Typeahead
-            label="Select Vehicles"
-            options={[
-              { label: "Car", value: "car" },
-              { label: "Bike", value: "bike" },
-              { label: "Truck", value: "truck" },
-              { label: "Bus", value: "bus" },
-            ]}
-            multiple
-            onChange={setSelectedVehicles}
-          />
+            <Typeahead
+              label="Select Vehicles"
+              options={[
+                { label: "Car", value: "car" },
+                { label: "Bike", value: "bike" },
+                { label: "Truck", value: "truck" },
+                { label: "Bus", value: "bus" },
+              ]}
+              multiple
+              onChange={setSelectedVehicles}
+            />
 
-          <DatePicker
-            label="Purchase Date"
-            value={date}
-            onChange={setDate}
-          />
+            <DatePicker
+              label="Purchase Date"
+              value={date}
+              onChange={setDate}
+            />
 
-          <RadioGroupField
-            label="Vehicle Type"
-            name="vehicleType"
-            value={vehicleType}
-            onChange={setVehicleType}
-            options={[
-              { label: "Car", value: "car" },
-              { label: "Truck", value: "truck" },
-              { label: "Bus", value: "bus" },
-            ]}
-          />
+            <RadioGroupField
+              label="Vehicle Type"
+              name="vehicleType"
+              value={vehicleType}
+              onChange={setVehicleType}
+              options={[
+                { label: "Car", value: "car" },
+                { label: "Truck", value: "truck" },
+                { label: "Bus", value: "bus" },
+              ]}
+            />
 
-          <CheckboxField
-            label="Active Vehicle"
-            checked={isActive}
-            onChange={setIsActive}
-          />
+            <CheckboxField
+              label="Active Vehicle"
+              checked={isActive}
+              onChange={setIsActive}
+            />
 
-          <button onClick={handleSubmit} className="btn-primary">
-            Submit
-          </button>
+            <button onClick={handleSubmit} className="btn-primary">
+              Submit
+            </button>
 
-        </div>
+          </div>
         </div>
       </div>
     </div>
