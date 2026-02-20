@@ -20,7 +20,7 @@ export default function Login() {
     let isValid = true;
 
     if (!username.trim()) {
-      newErrors.username = 'Email is required';
+      newErrors.username = 'Username is required';
       isValid = false;
     }
 
@@ -46,28 +46,18 @@ export default function Login() {
       if (result.token) {
         localStorage.setItem('token', result.token);
         localStorage.setItem('username', username);
-        showToast(
-  "Success",
-  "Login successful",
-  "success"
-)
 
+        showToast("Success", "Login successful", "success");
         router.push('/');
       } else {
-       showToast(
-  "Error",
-  "Invalid credentials",
-  "error"
-)
-
+        showToast("Error", "Invalid credentials", "error");
       }
     } catch (error: any) {
       showToast(
-  "Error",
-  error?.message || "Something went wrong",
-  "error"
+        "Error",
+        error?.message || "Something went wrong",
+        "error"
       );
-     
     } finally {
       setLoading(false);
     }
@@ -102,10 +92,10 @@ export default function Login() {
 
         <form onSubmit={handleLogin}>
           <div style={{ marginBottom: '16px' }}>
-            <label className="label">Email</label>
+            <label className="label">Username</label>
             <input
-              type="email"
-              placeholder="Enter your email"
+              type="text"
+              placeholder="Enter your username"
               className="input-field"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
@@ -219,7 +209,7 @@ export default function Login() {
           </button>
 
           <p style={{ textAlign: 'center', fontSize: '14px', color: 'var(--text-secondary)', marginTop: '24px' }}>
-            Don't have an account?{' '}
+            Don't have an account{' '}
             <a href="#" style={{ color: 'var(--primary)', fontWeight: '500', textDecoration: 'none' }}>
               Sign up
             </a>
