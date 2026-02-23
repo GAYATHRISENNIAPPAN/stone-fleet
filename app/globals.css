@@ -1,12 +1,9 @@
 @import "tailwindcss";
 
 /* =====================================================
-   STONE FLEET - FLEET MANAGEMENT GLOBAL THEME
+   STONE FLEET - GLOBAL THEME
 ===================================================== */
 
-/* ===============================
-   ROOT VARIABLES
-================================= */
 :root {
   --primary: #2563eb;
   --primary-dark: #1d4ed8;
@@ -37,7 +34,7 @@ body {
 }
 
 /* ===============================
-   BUTTON STYLES
+   BUTTONS
 ================================= */
 .btn-primary {
   background-color: var(--primary);
@@ -49,243 +46,92 @@ body {
   cursor: pointer;
   transition: all 0.2s ease-in-out;
 }
-
 .btn-primary:hover {
   background-color: var(--primary-dark);
   transform: translateY(-1px);
 }
 
-.btn-primary:active {
-  transform: scale(0.98);
-}
-
-.btn-secondary {
-  background-color: var(--secondary);
-  color: white;
-  padding: 10px 18px;
+.toolbar-btn {
+  padding: 6px 14px;
+  border: 1px solid var(--border-color);
   border-radius: 8px;
-  font-weight: 600;
-  border: none;
+  background: white;
   cursor: pointer;
-  transition: all 0.2s ease-in-out;
-}
-
-.btn-secondary:hover {
-  opacity: 0.9;
-}
-
-.btn-danger {
-  background-color: var(--danger);
-  color: white;
-  padding: 10px 18px;
-  border-radius: 8px;
-  font-weight: 600;
-  border: none;
-  cursor: pointer;
-  transition: all 0.2s ease-in-out;
-}
-
-.btn-danger:hover {
-  opacity: 0.9;
+  color: var(--text-primary);
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 
 /* ===============================
-   INPUT FIELD STYLE
+   INPUT FIELD
 ================================= */
 .input-field {
   width: 100%;
   padding: 10px 14px;
   border: 1px solid var(--border-color);
   border-radius: 8px;
-  outline: none;
-  transition: all 0.2s ease;
   background-color: white;
   font-size: 14px;
 }
 
-.input-field:focus {
-  border-color: var(--primary);
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
-}
-
 /* ===============================
-   LABEL STYLES
-================================= */
-.form-label {
-  display: block;
-  margin-bottom: 6px;
-  font-size: 14px;
-  font-weight: 500;
-  color: var(--text-secondary);
-}
-
-.label {
-  display: block;
-  margin-bottom: 6px;
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--text-primary);
-}
-
-/* ===============================
-   CARD STYLE
+   CARD
 ================================= */
 .card {
   background-color: var(--card-bg);
   padding: 20px;
   border-radius: 12px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.04);
 }
 
-/* ===============================
+/* =====================================================
    TABLE STYLE
-================================= */
+===================================================== */
+
 .table {
   width: 100%;
   border-collapse: collapse;
+  background: white;
 }
 
-.table th,
-.table td {
-  padding: 12px;
-  border-bottom: 1px solid var(--border-color);
-  text-align: left;
-  font-size: 14px;
-}
-
+/* TABLE HEADER (WHITE BG) */
 .table th {
-  color: var(--text-secondary);
+  background-color: #ffffff !important;  /* UPDATED */
+  color: var(--text-primary);
   font-weight: 600;
-  background-color: #f1f5f9;
+  padding: 12px 10px;
+  border-bottom: 1px solid var(--border-color);
+  border-right: 1px solid var(--border-color);
 }
 
-/* ===============================
-   TYPEAHEAD STYLES
-================================= */
-.typeahead-container {
-  position: relative;
-  width: 100%;
-}
-
-.typeahead-input-wrapper {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  padding: 8px;
-  border: 1px solid var(--border-color);
-  border-radius: 8px;
-  background-color: white;
-  min-height: 44px;
-  transition: all 0.2s ease;
-}
-
-.typeahead-input-wrapper:focus-within {
-  border-color: var(--primary);
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
-}
-
-.typeahead-tag {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 4px 10px;
-  background-color: var(--primary);
-  color: white;
-  border-radius: 6px;
+/* TABLE CELLS */
+.table td {
+  padding: 12px 10px;
   font-size: 14px;
-  font-weight: 500;
+  border-bottom: 1px solid var(--border-color);
+  border-right: 1px solid var(--border-color);
+  height: 54px;
 }
 
-.typeahead-tag-remove {
-  border: none;
-  background: transparent;
-  color: white;
-  cursor: pointer;
-  font-size: 16px;
-  line-height: 1;
-  padding: 0;
-  font-weight: 600;
+.table th:last-child,
+.table td:last-child {
+  border-right: none;
 }
 
-.typeahead-tag-remove:hover {
-  opacity: 0.8;
+.table tbody tr:hover {
+  background-color: #f8fafc;
 }
 
-.typeahead-input {
-  flex: 1;
-  border: none;
-  outline: none;
-  min-width: 120px;
-  font-size: 14px;
-  padding: 4px;
-}
-
-.typeahead-dropdown {
-  position: absolute;
-  width: 100%;
-  margin-top: 6px;
-  background-color: white;
-  border: 1px solid var(--border-color);
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  max-height: 240px;
-  overflow-y: auto;
-  z-index: 1000;
-  list-style: none;
-  padding: 4px;
-  margin-left: 0;
-}
-
-.typeahead-option {
-  padding: 10px 12px;
-  cursor: pointer;
-  border-radius: 6px;
-  font-size: 14px;
-  transition: background-color 0.15s ease;
-}
-
-.typeahead-option:hover {
-  background-color: rgba(37, 99, 235, 0.08);
-}
-
-.typeahead-option-highlighted {
-  background-color: rgba(37, 99, 235, 0.12);
-}
-
-.typeahead-no-results {
-  padding: 10px 12px;
-  color: var(--text-secondary);
-  font-size: 14px;
-}
-/* CRM Light Background */
-.fleet-page {
-  background-color: #f3f6fb;
-  padding: 20px;
-  min-height: 100vh;
-}
-
-/* Table wrapper to match CRM */
+/* WRAPPER */
 .fleet-table-wrapper {
   background: #ffffff;
   border-radius: 12px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-  overflow: hidden;
+  border: 1px solid #e2e8f0;
 }
 
-/* Hover effect */
-.table tbody tr:hover {
-  background-color: #f8fafc;
-  transition: 0.2s ease;
-}
-
-/* Row height */
-.table th,
-.table td {
-  height: 54px;
-  vertical-align: middle;
-}
-
-/* Checkbox theme */
+/* CHECKBOX */
 .fleet-checkbox {
   width: 18px;
   height: 18px;
@@ -293,11 +139,80 @@ body {
   accent-color: var(--primary);
 }
 
-/* Fade animation */
+/* PAGE */
+.fleet-page {
+  background-color: #f3f6fb;
+  padding: 20px;
+  min-height: 100vh;
+}
+
+/* FADE ANIMATION */
 .fade-in {
   animation: fadeIn 0.25s ease-in;
 }
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
+}
+
+/* =====================================================
+   DRIVER CRM STYLES
+===================================================== */
+
+/* Entire driver row text → Blue */
+.driver-crm-row td {
+  color: #2563eb !important;
+  font-weight: 600 !important;
+}
+
+/* Apply white BG to: name, photo, phone */
+.driver-crm-white {
+  background: #ffffff !important;
+}
+
+.driver-crm-photo img {
+  border-radius: 50%;
+  border: 2px solid #e2e8f0;
+}
+
+/* =====================================================
+   TAG BADGES — AUTO TEXT COLOR BASED ON BG
+===================================================== */
+
+.tag-badge {
+  padding: 4px 10px;
+  border-radius: 16px;
+  font-size: 12px;
+  margin-right: 6px;
+  font-weight: 600;
+}
+
+/* DARK COLOR TAGS → WHITE TEXT */
+.tag-onduty {
+  background: #2563eb;
+  color: #ffffff;
+}
+.tag-workshop {
+  background: #dc2626;
+  color: #ffffff;
+}
+.tag-experienced {
+  background: #7c3aed;
+  color: #ffffff;
+}
+
+/* LIGHT COLOR TAGS → DARK TEXT */
+.tag-available {
+  background: #16a34a;
+  color: #ffffff;
+}
+
+.tag-backup {
+  background: #d97706;
+  color: #1e293b;
+}
+
+.tag-heavy {
+  background: #0ea5e9;
+  color: #1e293b;
 }

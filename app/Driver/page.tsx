@@ -8,9 +8,11 @@ import Sidebar from "@/components/Sidebar";
 
 export default function FleetVehicleListPage() {
   const [search, setSearch] = useState("");
-  const [activeTab, setActiveTab] =
-    useState<"vehicles" | "drivers">("vehicles");
+  const [activeTab, setActiveTab] = useState<"vehicles" | "drivers">("vehicles");
 
+  /* ==========================
+      PERSIST ACTIVE TAB
+  =========================== */
   useEffect(() => {
     const saved = localStorage.getItem("fleet-active-tab");
     if (saved === "vehicles" || saved === "drivers") {
@@ -23,6 +25,9 @@ export default function FleetVehicleListPage() {
     localStorage.setItem("fleet-active-tab", tab);
   };
 
+  /* ==========================
+      MOCK DATA
+  =========================== */
   const vehicles = [
     {
       id: 1,
@@ -92,32 +97,27 @@ export default function FleetVehicleListPage() {
     },
   ];
 
-  /* ===========================
-     STATUS BADGE WITH ICON DOT
+  /* ==========================
+      STATUS BADGE COMPONENT
   =========================== */
   const StatusBadge = ({ text }: { text: string }) => {
-    let dotColor = "#6B7280";
-
-    if (text === "Active") dotColor = "#16A34A";
-    if (text === "Idle") dotColor = "#F59E0B";
-    if (text === "Maintenance") dotColor = "#DC2626";
-    if (text === "On Leave") dotColor = "#6B7280";
-    if (text === "On Duty") dotColor = "#2563EB";
+    let color = "#6B7280";
+    if (text === "Active") color = "#16A34A";
+    if (text === "Idle") color = "#F59E0B";
+    if (text === "Maintenance") color = "#DC2626";
+    if (text === "On Duty") color = "#2563EB";
 
     return (
       <span
         style={{
           padding: "4px 10px",
           borderRadius: "16px",
-          fontSize: "12px",
-          fontWeight: 500,
-          border: "1px solid rgba(0,0,0,0.18)",
+          border: "1px solid var(--border-color)",
           background: "#F6F7F9",
-          color: "#374151",
+          fontSize: "12px",
           display: "inline-flex",
           alignItems: "center",
           gap: "6px",
-          whiteSpace: "nowrap",
         }}
       >
         <span
@@ -125,8 +125,7 @@ export default function FleetVehicleListPage() {
             width: "8px",
             height: "8px",
             borderRadius: "50%",
-            backgroundColor: dotColor,
-            display: "inline-block",
+            backgroundColor: color,
           }}
         ></span>
         {text}
@@ -134,12 +133,11 @@ export default function FleetVehicleListPage() {
     );
   };
 
-  /* ===========================
-     TAG BADGE UI
+  /* ==========================
+      TAG BADGE COMPONENT
   =========================== */
   const TagBadge = ({ text }: { text: string }) => {
-    let bg = "#4F46E5";
-
+    let bg = "#6366F1";
     if (text === "On Duty") bg = "#2563EB";
     if (text === "Available") bg = "#16A34A";
     if (text === "Workshop") bg = "#DC2626";
@@ -153,11 +151,9 @@ export default function FleetVehicleListPage() {
           padding: "4px 10px",
           borderRadius: "16px",
           fontSize: "12px",
-          fontWeight: 500,
-          marginRight: "6px",
-          background: bg,
           color: "white",
-          whiteSpace: "nowrap",
+          background: bg,
+          marginRight: "6px",
         }}
       >
         {text}
@@ -165,126 +161,97 @@ export default function FleetVehicleListPage() {
     );
   };
 
+  /* ==========================
+      MAIN RETURN
+  =========================== */
   return (
     <div style={{ display: "flex", width: "100%", height: "100vh", overflow: "hidden" }}>
       <Sidebar />
 
-      <div style={{ flex: 1, display: "flex", flexDirection: "column", height: "100vh", overflow: "hidden" }}>
+      <div style={{ flex: 1, display: "flex", flexDirection: "column" }}>
         <Header />
 
-        <div style={{ flex: 1, overflowY: "auto" }}>
-          <div className="fleet-page">
+        <div className="fleet-page">
 
-            {/* TABS */}
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: "20px",
-                marginBottom: "20px",
-              }}
-            >
-              <button
-                className={activeTab === "vehicles" ? "tab-active" : "tab"}
-                onClick={() => changeTab("vehicles")}
-              >
-                Vehicle List
-              </button>
+          {/* ========================== TABS ========================== */}
+          <div style={{ display: "flex", gap: "20px", marginBottom: "20px" }}>
+            <button className={activeTab === "vehicles" ? "tab-active" : "tab"} onClick={() => changeTab("vehicles")}>
+              Vehicle List
+            </button>
+            <button className={activeTab === "drivers" ? "tab-active" : "tab"} onClick={() => changeTab("drivers")}>
+              Driver List
+            </button>
 
-              <button
-                className={activeTab === "drivers" ? "tab-active" : "tab"}
-                onClick={() => changeTab("drivers")}
-              >
-                Driver List
-              </button>
+            <div style={{ marginLeft: "auto", display: "flex", gap: "10px" }}>
+              <button className="toolbar-btn">Customize table ▼</button>
 
-              <div style={{ marginLeft: "auto", display: "flex", gap: "10px" }}>
-                <button className="toolbar-btn">Customize table</button>
-
-                {activeTab === "vehicles" && (
-                  <>
-                    <button className="toolbar-btn">Import vehicles</button>
-                    <button className="btn-primary">+ Add Vehicle</button>
-                  </>
-                )}
-
-                {activeTab === "drivers" && (
-                  <>
-                    <button className="toolbar-btn">Import drivers</button>
-                    <button className="btn-primary">+ Add Driver</button>
-                  </>
-                )}
-              </div>
+              {activeTab === "vehicles" ? (
+                <>
+                  <button className="toolbar-btn">Import vehicles ▼</button>
+                  <button className="btn-primary">+ Add Vehicle</button>
+                </>
+              ) : (
+                <>
+                  <button className="toolbar-btn">Import drivers ▼</button>
+                  <button className="btn-primary">+ Add Driver</button>
+                </>
+              )}
             </div>
+          </div>
 
-            {/* TOOLBAR */}
-            <div
-              className="card"
-              style={{
-                padding: "12px",
-                marginBottom: "16px",
-                display: "flex",
-                alignItems: "center",
-                gap: "20px",
-              }}
-            >
-              <button className="toolbar-btn">Table ▼</button>
-              <button className="toolbar-btn">Bulk actions</button>
+          {/* ========================== FILTER BAR ========================== */}
+          <div className="card" style={{ padding: "12px", marginBottom: "16px", display: "flex", alignItems: "center", gap: "20px" }}>
+            <button className="toolbar-btn">Table ▼</button>
+            <button className="toolbar-btn">Bulk actions</button>
 
-              <div style={{ width: "240px" }}>
-                <FormField
-                  type="text"
-                  placeholder={activeTab === "vehicles" ? "Search vehicles..." : "Search drivers..."}
-                  value={search}
-                  onChange={setSearch}
-                />
-              </div>
+            <div style={{ width: "260px" }}>
+              <FormField
+                type="text"
+                placeholder={activeTab === "vehicles" ? "Search vehicles..." : "Search drivers..."}
+                value={search}
+                onChange={setSearch}
+              />
             </div>
+          </div>
 
-            {/* TABLE */}
-            <div className="fleet-table-wrapper">
-              <table className="table" style={{ minWidth: "1200px" }}>
-                <thead>
-                  <tr>
-                    <th style={{ width: "40px", textAlign: "center" }}>
-                      <input type="checkbox" className="fleet-checkbox" />
-                    </th>
+          {/* ========================== TABLE ========================== */}
+          <div className="fleet-table-wrapper">
+            <table className="table">
+              <thead>
+                <tr>
+                  <th style={{ width: "40px", textAlign: "center" }}>
+                    <input type="checkbox" className="fleet-checkbox" />
+                  </th>
 
-                    {activeTab === "vehicles" && (
-                      <>
-                        <th>Vehicle Number</th>
-                        <th>Model</th>
-                        <th>Assigned Driver</th>
-                        <th>Last Trip</th>
-                        <th>Fuel Type</th>
-                        <th>Status</th>
-                        <th>Tags</th>
-                      </>
-                    )}
+                  {activeTab === "vehicles" ? (
+                    <>
+                      <th>Vehicle Number</th>
+                      <th>Model</th>
+                      <th>Assigned Driver</th>
+                      <th>Last Trip</th>
+                      <th>Fuel</th>
+                      <th>Status</th>
+                      <th>Tags</th>
+                    </>
+                  ) : (
+                    <>
+                      <th>Driver Name</th>
+                      <th>Photo</th>
+                      <th>Phone</th>
+                      <th>Assigned Vehicle</th>
+                      <th>License Expiry</th>
+                      <th>Status</th>
+                      <th>Tags</th>
+                    </>
+                  )}
+                </tr>
+              </thead>
 
-                    {activeTab === "drivers" && (
-                      <>
-                        <th>Driver Name</th>
-                        <th>Photo</th>
-                        <th>Phone</th>
-                        <th>Assigned Vehicle</th>
-                        <th>License Expiry</th>
-                        <th>Status</th>
-                        <th>Tags</th>
-                      </>
-                    )}
-                  </tr>
-                </thead>
-
-                <tbody key={activeTab} className="fade-in">
-
-                  {/* VEHICLES */}
-                  {activeTab === "vehicles" &&
-                    vehicles.map((row) => (
+              <tbody key={activeTab} className="fade-in">
+                {activeTab === "vehicles"
+                  ? vehicles.map((row) => (
                       <tr key={row.id}>
-                        <td>
-                          <input type="checkbox" className="fleet-checkbox" />
-                        </td>
+                        <td><input type="checkbox" className="fleet-checkbox" /></td>
 
                         <td>
                           <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
@@ -297,74 +264,57 @@ export default function FleetVehicleListPage() {
                         <td>{row.job}</td>
                         <td>{row.email}</td>
                         <td>{row.mobile}</td>
-
-                        <td>
-                          <StatusBadge text={row.status} />
-                        </td>
-
-                        <td>
-                          {row.tags.map((t) => (
-                            <TagBadge key={t} text={t} />
-                          ))}
-                        </td>
+                        <td><StatusBadge text={row.status} /></td>
+                        <td>{row.tags.map((t) => <TagBadge key={t} text={t} />)}</td>
                       </tr>
-                    ))}
+                    ))
+                  : drivers.map((row) => (
+                      <tr key={row.id} className="driver-crm-row">
 
-                  {/* DRIVERS */}
-                  {activeTab === "drivers" &&
-                    drivers.map((row) => (
-                      <tr key={row.id}>
-                        <td>
-                          <input type="checkbox" className="fleet-checkbox" />
+                        {/* Checkbox */}
+                        <td><input type="checkbox" className="fleet-checkbox" /></td>
+
+                        {/* DRIVER NAME */}
+                        <td className="driver-crm-cell">{row.name}</td>
+
+                        {/* PHOTO */}
+                        <td className="driver-crm-cell driver-crm-photo">
+                          <Image
+                            src={row.image}
+                            alt="driver"
+                            width={34}
+                            height={34}
+                            style={{ borderRadius: "50%" }}
+                          />
                         </td>
 
-                        <td>{row.name}</td>
+                        {/* PHONE */}
+                        <td className="driver-crm-cell">{row.phone}</td>
 
-                        <td>
-                          <Image src={row.image} alt="driver" width={32} height={32} style={{ borderRadius: "50%" }} />
-                        </td>
-
-                        <td>{row.phone}</td>
+                        {/* OTHER CELLS */}
                         <td>{row.vehicle}</td>
                         <td>{row.license}</td>
-
-                        <td>
-                          <StatusBadge text={row.status} />
-                        </td>
-
-                        <td>
-                          {row.tags.map((t) => (
-                            <TagBadge key={t} text={t} />
-                          ))}
-                        </td>
+                        <td><StatusBadge text={row.status} /></td>
+                        <td>{row.tags.map((t) => <TagBadge key={t} text={t} />)}</td>
                       </tr>
                     ))}
-
-                </tbody>
-              </table>
-            </div>
-
-            {/* PAGINATION */}
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between",
-                marginTop: "14px",
-              }}
-            >
-              <p>Showing 1–10 of 10</p>
-
-              <div style={{ display: "flex", gap: "10px" }}>
-                <button className="pagination-btn">&lt;</button>
-                <button className="pagination-btn pagination-active">1</button>
-                <button className="pagination-btn">&gt;</button>
-              </div>
-
-              <p style={{ color: "var(--text-secondary)" }}>Showing 25 per page</p>
-            </div>
-
+              </tbody>
+            </table>
           </div>
+
+          {/* ========================== PAGINATION ========================== */}
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginTop: "14px" }}>
+            <p>Showing 1–10 of 10</p>
+
+            <div style={{ display: "flex", gap: "10px" }}>
+              <button className="toolbar-btn">&lt;</button>
+              <button className="btn-primary">1</button>
+              <button className="toolbar-btn">&gt;</button>
+            </div>
+
+            <p style={{ color: "var(--text-secondary)" }}>Showing 25 per page</p>
+          </div>
+
         </div>
       </div>
     </div>
